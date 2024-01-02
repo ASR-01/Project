@@ -5,7 +5,7 @@ const Navbar = () => {
   const isAuthenticated = true;
 
   return (
-    <div className="flex h-15 w-full items-center justify-between p-10 bg-slate-600 text-xl text-white">
+    <div className="flex h-10  w-full items-center justify-between p-10 bg-slate-600 text-xl text-white">
       <div className="text-xl">COURSE-MART</div>
       <div className="flex items-center justify-evenly gap-20 ">
         <Link to={"/"}>Home</Link>

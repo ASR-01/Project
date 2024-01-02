@@ -1,9 +1,13 @@
 import Img1 from "../../assets/img.png";
 import { Link } from "react-router-dom";
 
+
+
 const Home = () => {
   return (
     <>
+
+
       
         <div className="w-full h-full ">
           <div className="flex text-center justify-around p-20">
@@ -27,8 +31,7 @@ const Home = () => {
               <img src={Img1} className="mr-10 shadow-2xl" />
             </div>
           </div>
-        </div>
-        
+        </div>  
       
     </>
   );

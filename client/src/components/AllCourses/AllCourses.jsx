@@ -52,8 +52,8 @@ const AllCourses = () => {
   ];
 
   return (
-    <div className="flex w-full justify-center items-start min-h-screen">
-      <div className="flex items-center flex-col mt-10  gap-2 border-gray-600">
+    <div className="flex w-full justify-center items-start">
+      <div className="flex items-center flex-col mt-10  gap-2 border-gray-600 ">
         <input
           className="px-10 w-[40vw] border-2 border-slate-400 "
           value={keyword}
@@ -74,7 +74,7 @@ const AllCourses = () => {
           })}
         </div>
 
-        <div className="flex my-5 justify-evenly items-start flex-wrap  border-slate-200 shadow-xl border-2 rounded-xl">
+        <div className="flex my-5 justify-evenly items-start flex-wrap   border-slate-200 shadow-xl border-2 rounded-xl">
           <CourseTheme
             title={"React"}
             id={1}
@@ -85,6 +85,8 @@ const AllCourses = () => {
             creator={"Aditya"}
             lecturesCount={19}
           />
+
+          
         </div>
       </div>
     </div>

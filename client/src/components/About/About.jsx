@@ -4,7 +4,7 @@ import { data } from "../../assets/docs/terms-and-conditions";
 import { RiSecurePaymentFill } from "react-icons/ri";
 const About = () => {
   return (
-    <div className="w-full h-screen flex justify-center items-start mt-10">
+    <div className="w-full m-h-screen flex justify-center items-start mt-10 mb-10">
       <div className="w-[50%] flex justify-center items-center flex-col shadow-2xl">
         <h1 className="text-5xl font-bold my-10">About Us</h1>
         <div className="flex items-center justify-between gap-10 mb-10">

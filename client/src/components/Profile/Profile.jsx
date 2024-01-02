@@ -3,15 +3,27 @@ import { Link } from "react-router-dom";
 import avatar from "../../assets/avatar.jpg";
 import react from "../../assets/react.png";
 import { MdDeleteOutline } from "react-icons/md";
+import Photo_upload from "./Photo _Upload/Photo_upload";
 import { useState } from "react";
-import { GiCrossedBones } from "react-icons/gi";
 
 const Profile = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState(null);
 
-  const openChangePhotoModal = () => {
+  const handleOpenModal = () => {
     setIsModalOpen(true);
   };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleUpload = (file) => {
+
+    setUploadedImage(URL.createObjectURL(file));
+    setIsModalOpen(false); 
+  };
+
 
   const user = {
     name: "Aditya",
@@ -33,26 +45,30 @@ const Profile = () => {
     console.log("Removed");
   };
 
-  const handleModalForm = (e, image) => {
-    e.preventDefault();
-    const myForm = new FormData();
-    myForm.append("file", image);
-  };
-
   return (
     <div className="w-full h-screen flex flex-col justify-start my-10 items-center">
-      <h1 className="font-bold text-4xl">Profile</h1>
+      <h1 className="font-bold text-5xl  text-left mr-[35vw] mb-11 ">Profile</h1>
       <div className="flex  justify-center gap-12 w-full mt-6 items-center">
         <div className="flex flex-col justify-center gap-2 items-center">
           <div className="w-[11vw] rounded-full bg-slate-700">
-            <img className="rounded-full" src={avatar} />
+          {uploadedImage ? (
+              <img className="rounded-full" src={uploadedImage} alt="Uploaded" />
+            ) : (
+              <img className="rounded-full" src={avatar} alt="Avatar" />
+            )}
           </div>
           <button
             className="text-red-300 font-bold text-2xl"
-            onClick={openChangePhotoModal}
+            onClick={handleOpenModal}
           >
             Change Photo
           </button>
+          {isModalOpen && (
+            <Photo_upload
+              handleCloseModal={handleCloseModal}
+              handleUpload={handleUpload}
+            />
+          )}
         </div>
 
         <div className="flex flex-col gap-4 text-2xl">
@@ -109,7 +125,7 @@ const Profile = () => {
       </div>
       <h1 className="text-4xl font-bold text-left w-[50%] my-6">Playlist</h1>
       {user.playlist.length > 0 && (
-        <div className="flex flex-wrap w-full items-center p-10">
+        <div className="flex flex-wrap w-full items-center px-10 ">
           {user.playlist.map((items) => (
             <div
               key={items.course}
@@ -130,91 +146,13 @@ const Profile = () => {
                   <MdDeleteOutline />
                 </button>
               </div>
+
             </div>
           ))}
         </div>
-      )}
-
-      {isModalOpen && (
-        <ChangePhotoComponent
-          handleModalForm={handleModalForm}
-          setIsModalOpen={setIsModalOpen}
-        />
       )}
     </div>
   );
 };
 
 export default Profile;
-
-function ChangePhotoComponent({ handleModalForm, setIsModalOpen }) {
-  const closeChangePhotoModal = () => {
-    setIsModalOpen(false);
-  };
-
-  
-  const [image, setImage] = useState("");
-  const [ImagePreview, setImagePreview] = useState("");
-
-  const changeImage = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      console.log("File loaded successfully");
-      setImagePreview(reader.result);
-      setImage(file);
-    };
-
-    reader.onerror = (error) => {
-      console.error("Error occurred while reading the file:", error);
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  };
-  return (
-    <div
-      className="fixed flex justify-center items-center inset-0 bg-gray-800 bg-opacity-50 w-full h-screen z-30"
-      onClick={closeChangePhotoModal}
-    >
-      <div className="flex flex-col justify-start items-center h-[30vh] w-[40vw] bg-white">
-        <h1 className="text-2xl font-bold py-3">Change Photo</h1>
-        <form onSubmit={(e) => handleModalForm(e, image)}>
-          {ImagePreview && <img src={ImagePreview} className="w-[10vw]" />}
-          <div className="mt-6 w-full">
-            <label
-              htmlFor="file-upload"
-              className="cursor-pointer bg-slate-500 hover:bg-slate-700 text-white font-bold px-[10vw] py-3 rounded-lg"
-            >
-              Upload File
-            </label>
-            <input
-              id="file-upload"
-              type="file"
-              className=""
-              onChange={changeImage}
-            />
-          </div>
-
-          <div className="mt-6 w-full">
-            <button
-              type="submit"
-              className="cursor-pointer bg-slate-300 text-slate-500 font-bold px-[9.5vw] py-2 rounded-lg"
-            >
-              Change Photo
-            </button>
-          </div>
-
-          <div className="relative flex justify-end text-3xl left-[5rem] bottom-[9rem]">
-            <button onClick={closeChangePhotoModal}>
-              {" "}
-              <GiCrossedBones />
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-}
