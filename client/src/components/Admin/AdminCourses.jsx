@@ -1,8 +1,12 @@
 import Sidebar from "./Sidebar";
 import { MdDeleteOutline } from "react-icons/md";
 import Img from "../../assets/react.png";
+import ViewLectures from "./ViewLectures";
+import { useState } from "react";
 
 const AdminCourses = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const courses = [
     {
       _id: "#5666745466562h",
@@ -38,7 +42,6 @@ const AdminCourses = () => {
       lectures: 1,
     },
 
-
     {
       _id: "#5666745466562h",
       poster: {
@@ -50,15 +53,24 @@ const AdminCourses = () => {
       view: 11,
       lectures: 1,
     },
-
   ];
 
-  const updateCourseHandler = (id) => {
-    console.log("Admin", id);
-  };
+  // const updateCourseHandler = (id) => {
+  //   console.log("Admin", id);
+  // };
   const deleteCourseHandler = (id) => {
     console.log("Id", id);
   };
+
+  const deleteButtonHandler =(courseId,lectureId)=>{
+    console.log("Hi");
+  }
+
+
+  const addLectureHandler =(e,title,courseId,description,vedio)=>{
+    e.preventDefault()
+    console.log("Hi");
+  }
   return (
     <div
       className="grid grid-cols-2 min-h-screen "
@@ -88,7 +100,7 @@ const AdminCourses = () => {
                 <Row
                   key={item._id}
                   item={item}
-                  updateCourseHandler={updateCourseHandler}
+                  setIsOpen={setIsOpen}
                   deleteCourseHandler={deleteCourseHandler}
                 />
               ))}
@@ -98,6 +110,7 @@ const AdminCourses = () => {
             ALL Available Courses in Database
           </h1>
         </div>
+        <ViewLectures isOpen={isOpen} onClose={()=>setIsOpen(false)} addLectureHandler={addLectureHandler}  deleteButtonHandler={deleteButtonHandler} courseTitle="React Course"/>
       </div>
 
       <Sidebar />
@@ -106,7 +119,7 @@ const AdminCourses = () => {
 };
 
 export default AdminCourses;
-const Row = ({ item, updateCourseHandler, deleteCourseHandler }) => {
+const Row = ({ item, updateCourseHandler, deleteCourseHandler, setIsOpen }) => {
   return (
     <tr className="border-2">
       <td>{item._id}</td>
@@ -121,7 +134,7 @@ const Row = ({ item, updateCourseHandler, deleteCourseHandler }) => {
       <td>
         <div className="flex justify-around gap-10 items-center">
           <button
-            onClick={() => updateCourseHandler(item._id)}
+            onClick={() => setIsOpen(true)}
             className="w-[10vw] bg-red-400 text-white rounded-md   p-2"
           >
             View Lectures

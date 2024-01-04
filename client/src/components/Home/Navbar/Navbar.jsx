@@ -6,7 +6,7 @@ const Navbar = () => {
 
   return (
     <div className="flex h-10  w-full items-center justify-between p-10 bg-slate-600 text-xl text-white">
-      <div className="text-xl">COURSE-MART</div>
+      <Link to={'/'} className="text-xl">COURSE-MART</Link>
       <div className="flex items-center justify-evenly gap-20 ">
         <Link to={"/"}>Home</Link>
         <Link to={"/all-courses"}>All courses</Link>
